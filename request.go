@@ -112,6 +112,15 @@ func (insta *Instagram) sendRequest(o *reqOptions) (body []byte, err error) {
 		}
 	}
 
+	if o.Endpoint == urlLogin {
+		insta.Cookies = resp.Cookies()
+		for _, value := range req.Cookies() {
+			if strings.Contains(value.Name, "mid") {
+				insta.Cookies = append(insta.Cookies, value)
+			}
+		}
+	}
+
 	body, err = ioutil.ReadAll(resp.Body)
 	if err == nil {
 		err = isError(resp.StatusCode, body)

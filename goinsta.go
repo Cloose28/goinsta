@@ -70,6 +70,8 @@ type Instagram struct {
 	Contacts *Contacts
 	// Location instance
 	Locations *LocationInstance
+	// Cookies after login
+	Cookies []*http.Cookie
 
 	c *http.Client
 }
@@ -442,7 +444,7 @@ func (inst *Instagram) Login() error {
 	inst.Account.inst = inst
 	inst.rankToken = strconv.FormatInt(inst.Account.ID, 10) + "_" + inst.uuid
 	inst.zrToken()
-
+	
 	return err
 }
 
